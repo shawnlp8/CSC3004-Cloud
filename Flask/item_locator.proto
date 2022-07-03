@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package safeentry;
+package itemlocator;
 
-service SafeEntry {
-  rpc FindItem (Request) returns (Reply) {}
+service ItemLocator {
+  rpc SearchItem (Request) returns (Reply) {}
 }
 
 message Request {
