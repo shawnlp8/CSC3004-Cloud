@@ -22,7 +22,7 @@ def searchItem():
         searchItemHelper(item)
         
 # Helper functions
-def searchItemHelper():
+def searchItemHelper(item):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatement = "SELECT * FROM Product WHERE name LIKE '%'" + str(item) + "'%'"
