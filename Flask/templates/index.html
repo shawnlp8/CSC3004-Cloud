@@ -6,76 +6,38 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Item Locator</title>
+    <title>Product Search</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src = "https://kit.fontawesome.com/b99e675b6e.js"></script>
+
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="static\css\styles.css">
+    
   </head>
     <html>
     <body>
 
         <div>
             <ul class="horizontal">
-                <li><a class="active" href="javascript:void(0)">Home</a></li>
-                <li><a href="javascript:void(0)">Manager</a></li>
+                <li><a class="active" href='/'>Home</a></li>
+                <li><a href='/Manager'>Manager</a></li>
               </ul>
         </div>
 
-        <h1 class="center">CSC3004 Item Locator</h1>
+        <h1 class="center">Product Locator</h1>
 
-        <div class="center">
-            <input type="text" placeholder="Type in your item here">
-            <button type="button">Search</button>
-          </div>
-
-        <div id="mapView"></div>
-
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"
-        ></script>
-
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
-
-        <script src="https://d1p5cqqchvbqmy.cloudfront.net/websdk/v1.71.12/mappedin.js"></script>
-
-        <script>
-
-            var div = document.getElementById('mapView')
-
-            var options = {
-            mapview: {
-                antialias: "AUTO", //auto apply antialiasing
-                mode: Mappedin.modes.TEST, //automatically test for 3d or 2d mode
-            },
-            venue: {
-                venue: "mappedin-demo-mall",
-                clientId: "5eab30aa91b055001a68e996",
-                clientSecret: "RJyRXKcryCMy4erZqqCbuB1NbR66QTGNXVE0x3Pg6oCIlUR1",
-                perspective: "Website", //pick the perspective you would like to load
-                things: { //fetch some data
-                    venue: ['slug', 'name'],
-                    maps: ['name', 'elevation', 'shortName']
-                },
-            },
-            }
-
-            Mappedin.initialize(options, div);
-
-        </script>
+        <div class = "wrapper">
+            <div class = "search_bar">
+                <div class = "search_btn">
+                     <i class = "fas fa-search"></i>
+                </div>    
+                <input type="text" class="input_search" placeholder="Search...">
+            </div>
+        </div>
 
     </body>
     
