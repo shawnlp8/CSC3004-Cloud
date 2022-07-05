@@ -20,6 +20,7 @@ def searchItem():
         item = request.form.get("item")
         searchItemHelper(item)
 
+# Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
 def insertSupermarket():
     if (request.method == "POST"):
@@ -34,14 +35,16 @@ def getSupermarket():
     if (request.method == "GET"):
         getSupermarketHelper()
 
-@app.route('/updateSupermarket', methods = ["PUT"])
-def updateSupermarket(supermarketID, supermarketName, supermarketBranch, imageFileName):
-    if (request.method == "updateSupermarket"):
+@app.route('/manager', methods = ["POST"])
+def insertBlueprint():
+    if (request.method == "POST"):
         supermarketName = request.form.get("supermarketName")
         supermarketBranch = request.form.get("supermarketBranch")
-        imageFileName = request.form.get("imageFileName")
-        insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
-    return "Insert Successful!"
+        supermarketBlueprint = request.form.get("supermarketBlueprint")
+
+        reply = insertPhysicalFPHelper(supermarketName, supermarketBranch, supermarketBlueprint)
+        return reply
+
     
 # Helper functions
 def searchItemHelper(item):
@@ -56,15 +59,30 @@ def searchItemHelper(item):
     else:
         return "Item not found!"
 
+# Add new Supermarket Helper
 def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES (" + str(supermarketName) + ", " + str(supermarketBranch) + ", " + str(supermarketAddress) + ")"
     cursor.execute(sqlStatementSupermarket)
-    sqlStatementPhysicalFP = "INSERT INTO PhysicalFP (supermarketID) VALUES (" + cursor.lastrowid + ")"
-    cursor.execute(sqlStatementPhysicalFP)
     connection.commit()
     connection.close()
+
+# Insert to PhysicalFP (Manager 1st page)
+def insertPhysicalFPHelper(supermarket, branch, blueprint):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    sql_SupermarketID = "SELECT supermarketID FROM Supermarket WHERE name=" + supermarket + " AND branch=" + branch + ";"
+    cursor.execute(sql_SupermarketID)
+    get_SupermarketID = cursor.fetchall()
+    
+    if not (cursor.rowcount == 0):
+        sql_InsertPhysicalFP = "INSERT INTO PhysicalFP (supermarketID, imageFileName) VALUES (" + int(get_SupermarketID) + ", " + str(blueprint) + ");"
+        cursor.execute(sql_InsertPhysicalFP)
+        connection.commit()
+        connection.close()
+    else:
+        return "No such Supermarket exists, please submit a new Supermarket."
 
 def getSupermarketHelper():
     connection = sqlite3.connect('../database/database.db')
@@ -78,26 +96,7 @@ def getSupermarketHelper():
     else:
         return "Cannot retrieve supermarket data, please try again!"
 
-def updateSupermarketHelper(supermarketID, supermarketName, supermarketBranch, imageFileName):
-    connection = sqlite3.connect('../database/database.db')
-    cursor = connection.cursor()
-    sql = ''' UPDATE tasks
-              SET priority = ? ,
-                  begin_date = ? ,
-                  end_date = ?
-              WHERE id = ?'''
-    sqlStatementUpdateSupermarket = "UPDATE Supermarket SET supermarketName = " + supermarketName + ", supermarketBranch = " + supermarketBranch + " WHERE supermarketID = " + supermarketID
-    cursor.execute(sqlStatementUpdateSupermarket)
-    sqlStatementUpdatePhysicalFP = "UPDATE PhysicalFP SET imageFileName = " + imageFileName + " WHERE supermarketID = " + supermarketID
-    cursor.execute(sqlStatementUpdatePhysicalFP)
-    connection.commit()
-    if not (cursor.rowcount == 0):
-        print(record)
-        return "Update successful!"
-    else:
-        return "Update failed, please try again!"
-    connection.close()
-        
+    
 
 if __name__ == '__main__':
     # Run the Flask server
