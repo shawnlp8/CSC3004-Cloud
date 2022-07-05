@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class = "navbar">
-        <a class = "active" href="#"><i class="fa fa-fw fa-home"></i>Home</a>
+        <a class = "active" href=""><i class="fa fa-fw fa-home"></i>Home</a>
     </div>
     <div class = "wrapper">
         <div class = "search_bar">
@@ -19,21 +19,5 @@
             <input type="text" class="input_search" placeholder="Search...">
         </div>
     </div>
-<script>
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = 
-    document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i=0;i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-</script>
 </body>
 </html>
