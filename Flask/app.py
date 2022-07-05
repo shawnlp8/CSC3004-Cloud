@@ -14,9 +14,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/manager')
+@app.route('/Manager')
 def manager():
-    return render_template('manager.html')
+    return render_template('Manager.html')
 
 @app.route('/searchItem', methods = ["GET"])
 def searchItem():
