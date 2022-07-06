@@ -136,12 +136,7 @@ h3{
     float: right;
 }
 
-<<<<<<< Updated upstream
 .box input[type=submit]{
-=======
-button[class="Next"]{
-    position: relative;
->>>>>>> Stashed changes
     background-color: rgb(74, 194, 235);
     color: white;
     font-weight: bold;
