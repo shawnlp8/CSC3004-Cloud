@@ -136,7 +136,12 @@ h3{
     float: right;
 }
 
+<<<<<<< Updated upstream
 .box input[type=submit]{
+=======
+button[class="Next"]{
+    position: relative;
+>>>>>>> Stashed changes
     background-color: rgb(74, 194, 235);
     color: white;
     font-weight: bold;
@@ -152,6 +157,11 @@ h3{
 
 .box input[type=submit]:hover{
     background-color: rgb(54, 144, 173);
+}
+
+.box button[class="Save"]{
+    position: relative;
+    top:10%;
 }
 
 .Find{

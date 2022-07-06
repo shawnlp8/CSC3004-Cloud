@@ -21,11 +21,19 @@ def manager():
     db_Supermarket = getSupermarketHelper()
     return render_template('Manager.html', db_Supermarket=db_Supermarket)
 
+<<<<<<< Updated upstream
 @app.route('/Specifications')
 def specifications():
     return render_template('product_specifications.html')
 
 @app.route('/searchItem', methods = ["GET", "POST"])
+=======
+@app.route('/addSuperMarket')
+def addSupermarket():
+    return render_template('addSupermarket.html')
+
+@app.route('/searchItem', methods = ["GET"])
+>>>>>>> Stashed changes
 def searchItem():
     request_data = request.get_json()
     # print("JSON String: \n", str(request_data))
