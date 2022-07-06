@@ -129,6 +129,24 @@ input[type="file"]{
     display:none;
 }
 
+button[class="Next"]{
+    position: relative;
+    width: 250px;
+    background-color: rgb(74, 194, 235);
+    border:lightgrey;
+    min-height: 10%;
+    width: 50px;
+    top: 10%;
+    left: 28%;
+    width:150px;
+}
+
+.Find{
+    text-align: center;
+    position: relative;
+    top: 10%;
+    right: 2%;
+}
 
 
 ::placeholder{
