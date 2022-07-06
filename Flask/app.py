@@ -26,6 +26,10 @@ def manager():
     
     return render_template('Manager.html', db_Supermarket=db_Supermarket, db_Branch = db_Branch)
 
+@app.route('/addSuperMarket')
+def addSuperMarket():
+    return render_template('addSuperMarket.html')
+
 @app.route('/Specifications')
 def specifications():
     return render_template('product_specifications.html')

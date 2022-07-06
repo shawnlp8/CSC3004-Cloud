@@ -154,6 +154,11 @@ h3{
     background-color: rgb(54, 144, 173);
 }
 
+.box button[class="Save"]{
+    position: relative;
+    top:10%;
+}
+
 .Find{
     text-align: center;
     position: relative;
