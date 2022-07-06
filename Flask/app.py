@@ -21,9 +21,18 @@ def manager():
     db_Supermarket = getSupermarketHelper()
     return render_template('Manager.html', db_Supermarket=db_Supermarket)
 
+@app.route('/addSuperMarket')
+def addSuperMarket():
+    return render_template('addSuperMarket.html')
+
 @app.route('/Specifications')
 def specifications():
     return render_template('product_specifications.html')
+
+@app.route('/getItem')
+def getItem(item):
+    results = searchItemHelper(item)
+    render_template('getItem.html', itr=results)
 
 @app.route('/searchItem', methods = ["GET", "POST"])
 def searchItem():
