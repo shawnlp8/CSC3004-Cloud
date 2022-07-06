@@ -183,10 +183,15 @@ h3{
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
     border: 2px solid black;
+    /* 
+    background-image: url('cock.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    */
 }
 
 .inner > div{
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.3);
     border: 1px solid black;
     text-align: center;
     padding: 40%;

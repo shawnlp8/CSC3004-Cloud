@@ -19,7 +19,12 @@ def index():
 @app.route('/Manager')
 def manager():
     db_Supermarket = getSupermarketHelper()
-    return render_template('Manager.html', db_Supermarket=db_Supermarket)
+    
+    #supermarketName = request.form.get("sName")
+    #db_Branch = getBranchAJAX(supermarketName)
+    db_Branch = getBranchAJAX()
+    
+    return render_template('Manager.html', db_Supermarket=db_Supermarket, db_Branch = db_Branch)
 
 @app.route('/Specifications')
 def specifications():
@@ -37,9 +42,9 @@ def searchItem():
 @app.route('/insertSupermarket', methods = ["POST"])
 def insertSupermarket():
     if (request.method == "POST"):
-        supermarketName = request.form.get("supermarketName")
-        supermarketBranch = request.form.get("supermarketBranch")
-        supermarketAddress = request.form.get("supermarketAddress")
+        supermarketName = request.form.get("sName")
+        supermarketBranch = request.form.get("bName")
+        supermarketAddress = request.form.get("sAddress")
         insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
     return "Insert Successful!"
 
@@ -75,7 +80,19 @@ def searchItemHelper(item):
 def getSupermarketHelper():
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sqlStatement = "SELECT * FROM Supermarket"
+    sqlStatement = "SELECT DISTINCT name FROM Supermarket"
+    cursor.execute(sqlStatement)
+    record = cursor.fetchall()
+    if not (cursor.rowcount == 0):
+        return record
+    else:
+        return "Cannot retrieve supermarket data, please try again!"
+
+def getBranchAJAX():
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    #sqlStatement = "SELECT branch FROM Supermarket WHERE name='"+ supermarket +"'"
+    sqlStatement = "SELECT branch FROM Supermarket"
     cursor.execute(sqlStatement)
     record = cursor.fetchall()
     if not (cursor.rowcount == 0):
@@ -87,7 +104,7 @@ def getSupermarketHelper():
 def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES (" + str(supermarketName) + ", " + str(supermarketBranch) + ", " + str(supermarketAddress) + ")"
+    sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES('"+ supermarketName +"', '"+ supermarketBranch +"', '"+ supermarketAddress +"')"
     cursor.execute(sqlStatementSupermarket)
     connection.commit()
     connection.close()
