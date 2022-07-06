@@ -16,7 +16,8 @@ def index():
 
 @app.route('/Manager')
 def manager():
-    return render_template('Manager.html')
+    db_Supermarket = getSupermarketHelper()
+    return render_template('Manager.html', db_Supermarket=db_Supermarket)
 
 @app.route('/Specifications')
 def specifications():
@@ -69,6 +70,17 @@ def searchItemHelper(item):
     else:
         return "Item not found!"
 
+def getSupermarketHelper():
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    sqlStatement = "SELECT * FROM Supermarket"
+    cursor.execute(sqlStatement)
+    record = cursor.fetchall()
+    if not (cursor.rowcount == 0):
+        return record
+    else:
+        return "Cannot retrieve supermarket data, please try again!"
+
 # Add new Supermarket Helper
 def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress):
     connection = sqlite3.connect('../database/database.db')
@@ -94,17 +106,7 @@ def insertPhysicalFPHelper(supermarket, branch, blueprint):
     else:
         return "No such Supermarket exists, please submit a new Supermarket."
 
-def getSupermarketHelper():
-    connection = sqlite3.connect('../database/database.db')
-    cursor = connection.cursor()
-    sqlStatement = "SELECT * FROM Supermarket"
-    cursor.execute(sqlStatement)
-    record = cursor.fetchall()
-    if not (cursor.rowcount == 0):
-        print(record)
-        return record
-    else:
-        return "Cannot retrieve supermarket data, please try again!"
+
 
     
 

@@ -30,19 +30,16 @@
         <div class = "content">
           <label for="supermarket">Supermarket:</label>
           <select name="supermarket" id="supermarket" style="align-items:center">
-            <option value="NTUC">NTUC</option>
-            <option value="Giant">Giant</option>
-            <option value="Fairprice">Fairprice</option>
-            <option value="ColdStorage">Cold Storage</option>
+            {% for i in db_Supermarket %}
+              <option value={{i[1]}}>{{i[1]}}</option>
+            {% endfor %}
           </select>
           <br><br>
           <label for="branch">Branch:</label>
           <select name="branch" id="branch">
-            <option value="Tampines">Tampines</option>
-            <option value="Bishan">Bishan</option>
-            <option value="Paya Lebar">Paya Lebar</option>
-            <option value="Jurong East">Jurong East</option>
-            <option value="City Hall">City Hall</option>
+            {% for i in db_Supermarket %}
+              <option value={{i[2]}}>{{i[2]}}</option>
+            {% endfor %}
           </select>
           <br><br>
           <label for="blueprint">Blueprint:</label>
