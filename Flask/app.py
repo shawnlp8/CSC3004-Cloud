@@ -5,8 +5,10 @@ import random
 import datetime
 import os
 from urllib import response
-from flask import Flask, render_template, json, Response, redirect, redirect, jsonify, request
+from flask import Flask, render_template, json, Response, redirect, redirect, jsonify, request, url_for
 import sqlite3
+from werkzeug.utils import secure_filename
+import sys
 
 app = Flask(__name__)
 
@@ -41,20 +43,20 @@ def insertSupermarket():
         insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
     return "Insert Successful!"
 
-@app.route('/getSupermarket', methods = ["GET"])
-def getSupermarket():
-    if (request.method == "GET"):
-        getSupermarketHelper()
-
-@app.route('/manager', methods = ["POST"])
+@app.route('/insert_Blueprint', methods = ["POST"])
 def insertBlueprint():
     if (request.method == "POST"):
-        supermarketName = request.form.get("supermarketName")
-        supermarketBranch = request.form.get("supermarketBranch")
-        supermarketBlueprint = request.form.get("supermarketBlueprint")
+        supermarketName = request.form.get("sName")
+        supermarketBranch = request.form.get("bName")
+        
+        input_File = request.files['fName']
+        if input_File.filename == '':
+            return redirect(url_for('/Manager'))
+        else:
+            supermarketBlueprint = secure_filename(input_File.filename)
 
-        reply = insertPhysicalFPHelper(supermarketName, supermarketBranch, supermarketBlueprint)
-        return reply
+        insertPhysicalFPHelper(supermarketName, supermarketBranch, str(supermarketBlueprint))
+        return render_template('product_specifications.html')
     
     
 # Helper functions
@@ -94,21 +96,18 @@ def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddre
 def insertPhysicalFPHelper(supermarket, branch, blueprint):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sql_SupermarketID = "SELECT supermarketID FROM Supermarket WHERE name=" + supermarket + " AND branch=" + branch + ";"
+    sql_SupermarketID = "SELECT supermarketID FROM Supermarket WHERE name='"+ supermarket + "' AND branch='"+ branch +"'"
     cursor.execute(sql_SupermarketID)
-    get_SupermarketID = cursor.fetchall()
+    get_SupermarketID = cursor.fetchone()
     
     if not (cursor.rowcount == 0):
-        sql_InsertPhysicalFP = "INSERT INTO PhysicalFP (supermarketID, imageFileName) VALUES (" + int(get_SupermarketID) + ", " + str(blueprint) + ");"
+        sql_InsertPhysicalFP = "INSERT INTO PhysicalFP (supermarketID, imageFileName) VALUES(" + str(get_SupermarketID[0]) + ", '" + str(blueprint) +"')"
         cursor.execute(sql_InsertPhysicalFP)
         connection.commit()
         connection.close()
     else:
         return "No such Supermarket exists, please submit a new Supermarket."
 
-
-
-    
 
 if __name__ == '__main__':
     # Run the Flask server
