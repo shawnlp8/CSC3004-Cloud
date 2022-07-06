@@ -34,7 +34,7 @@ body{
 }
 
 .wrapper{
-    min-height: 30vh;
+    min-height: 20vh;
     display:flex;
     justify-content:center;
     align-items: center;
