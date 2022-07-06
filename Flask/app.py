@@ -26,7 +26,7 @@ def manager():
     
     return render_template('Manager.html', db_Supermarket=db_Supermarket, db_Branch = db_Branch)
 
-@app.route('/addSuperMarket')
+@app.route('/addSupermarket')
 def addSuperMarket():
     return render_template('addSuperMarket.html')
 
@@ -46,11 +46,11 @@ def searchItem():
 @app.route('/insertSupermarket', methods = ["POST"])
 def insertSupermarket():
     if (request.method == "POST"):
-        supermarketName = request.form.get("sName")
-        supermarketBranch = request.form.get("bName")
-        supermarketAddress = request.form.get("sAddress")
+        supermarketName = request.form.get("new_supermerket")
+        supermarketBranch = request.form.get("new_Branch")
+        supermarketAddress = request.form.get("new_Address")
         insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
-    return "Insert Successful!"
+    return render_template('Manager.html')
 
 @app.route('/insert_Blueprint', methods = ["POST"])
 def insertBlueprint():
@@ -96,7 +96,7 @@ def getBranchAJAX():
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     #sqlStatement = "SELECT branch FROM Supermarket WHERE name='"+ supermarket +"'"
-    sqlStatement = "SELECT branch FROM Supermarket"
+    sqlStatement = "SELECT DISTINCT branch FROM Supermarket"
     cursor.execute(sqlStatement)
     record = cursor.fetchall()
     if not (cursor.rowcount == 0):
