@@ -29,6 +29,11 @@ def addSuperMarket():
 def specifications():
     return render_template('product_specifications.html')
 
+@app.route('/getItem')
+def getItem(item):
+    results = searchItemHelper(item)
+    render_template('getItem.html', itr=results)
+
 @app.route('/searchItem', methods = ["GET", "POST"])
 def searchItem():
     request_data = request.get_json()
