@@ -31,7 +31,8 @@ def searchItem():
     # print("JSON String: \n", str(request_data))
     item = request_data['item']
     # print("item: " + item)
-    return jsonify({'data': searchItemHelper(item)})
+    # return jsonify({'data': searchItemHelper(item)})
+    return render_template("index.html", data = searchItemHelper(item))
 
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
