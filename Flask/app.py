@@ -52,7 +52,7 @@ def insertBlueprint():
 
         reply = insertPhysicalFPHelper(supermarketName, supermarketBranch, supermarketBlueprint)
         return reply
-
+    
     
 # Helper functions
 def searchItemHelper(item):
