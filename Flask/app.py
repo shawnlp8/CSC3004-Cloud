@@ -22,11 +22,13 @@ def manager():
 def specifications():
     return render_template('product_specifications.html')
 
-@app.route('/searchItem', methods = ["GET"])
+@app.route('/searchItem', methods = ["GET", "POST"])
 def searchItem():
-    if (request.method == "GET"):
-        item = request.form.get("item")
-        searchItemHelper(item)
+    request_data = request.get_json()
+    # print("JSON String: \n", str(request_data))
+    item = request_data['item']
+    # print("item: " + item)
+    return jsonify({'data': searchItemHelper(item)})
 
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
@@ -58,12 +60,12 @@ def insertBlueprint():
 def searchItemHelper(item):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sqlStatement = "SELECT * FROM Product WHERE name LIKE '%'" + str(item) + "'%'"
+    sqlStatement = "SELECT * FROM Product WHERE name LIKE '%" + str(item) + "%'"
     cursor.execute(sqlStatement)
-    record = cursor.fetchall()
+    data = cursor.fetchall()
     if not (cursor.rowcount == 0):
-        print(record)
-        return record
+        print(data)
+        return data
     else:
         return "Item not found!"
 
