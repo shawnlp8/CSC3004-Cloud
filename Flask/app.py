@@ -18,6 +18,10 @@ def index():
 def manager():
     return render_template('Manager.html')
 
+@app.route('/Specifications')
+def specifications():
+    return render_template('product_specifications.html')
+
 @app.route('/searchItem', methods = ["GET"])
 def searchItem():
     if (request.method == "GET"):
