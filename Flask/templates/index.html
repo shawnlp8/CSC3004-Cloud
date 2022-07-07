@@ -37,6 +37,18 @@
             </div>
         </div>
 
+        <div id="dataTable">
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Type</th>
+            <th>Product Price</th>
+            <th>Product Weight</th>
+            <th>Product Expiry Date</th>
+            <th>Product Image File Name</th>
+          </tr>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -66,9 +78,21 @@
                       var slicedData = JSON.stringify(data).slice(9, -2)
                       // Convert the sliced string back into an array
                       var dataArray = JSON.parse('[' + slicedData + ']')
-                      // console.dir(dataArray[0])
-                      // console.dir(dataArray[1])
-                      // console.dir(dataArray[2])
+                      console.dir(dataArray[0])
+
+                      // Traversing the JSON data
+                      for (var i = 0; i < dataArray.length; i++) {
+                          var row = $('<tr/>');  
+                          for (var j = 0; j < 7; j++)
+                          {
+                              var val = dataArray[i][j];
+                              console.dir(i.toString() + " " + j.toString() + ": " + val)
+                              row.append($('<td/>').html(val));
+                          }
+                          
+                          // Adding each row to the table
+                          $('#dataTable').append(row);
+                      }
                   },
                   error : (data) => {
                       console.dir(data)
