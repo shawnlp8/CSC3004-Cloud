@@ -62,7 +62,13 @@
                   dataType : 'json',
                   data : JSON.stringify(data),
                   success : (data) => {
-                      console.dir(data)
+                      // Slice the data and make it into string, removing first 9 characters and last 2 characters
+                      var slicedData = JSON.stringify(data).slice(9, -2)
+                      // Convert the sliced string back into an array
+                      var dataArray = JSON.parse('[' + slicedData + ']')
+                      // console.dir(dataArray[0])
+                      // console.dir(dataArray[1])
+                      // console.dir(dataArray[2])
                   },
                   error : (data) => {
                       console.dir(data)
