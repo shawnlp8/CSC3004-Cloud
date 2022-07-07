@@ -25,8 +25,8 @@
     </div>
 
     <div class="outer">
-        <h1>Product name</h1>
-        <div class="inner">
+        <h1>{{ pn }}</h1>
+        <div class="inner" id="inner">
             <div id="ID-A1"></div>
             <div id="ID-B1"></div>
             <div id="ID-C1"></div>
@@ -77,5 +77,15 @@
             <div id="ID-F7"></div>
         </div>
     </div>
+
+    <script>
+        let product_Location = '{{ loc }}'; 
+        let img_Name = '{{ fn }}'; 
+	    document.getElementById('inner').style.backgroundImage = "url('./static/css/"+ img_Name +"')";
+        document.getElementById(product_Location).style.backgroundColor = "green";
+        document.getElementById(product_Location).style.opacity = "0.3"; 
+        
+      </script>
+
   </body>
 </html>
