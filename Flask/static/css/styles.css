@@ -228,4 +228,18 @@ h3{
     transition: 0.2s;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
-]
+}
+
+#dataTable {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+th, td{
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 200px;
+    text-align: center;
+}
