@@ -51,7 +51,6 @@ def searchItem():
     item = request_data['item']
     # print("item: " + item)
     return jsonify({'data': searchItemHelper(item)})
-    # return render_template("getItem.html", data = searchItemHelper(item))
 
 @app.route('/itemLocator')
 def locateItem():
