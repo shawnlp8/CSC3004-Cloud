@@ -71,7 +71,7 @@ def insertBlueprint():
             supermarketBlueprint = secure_filename(input_File.filename)
 
         insertPhysicalFPHelper(supermarketName, supermarketBranch, str(supermarketBlueprint))
-        return render_template('product_specifications.html')
+        return render_template('product_specifications.html', BP_Filename = str(supermarketBlueprint))
     
     
 # Helper functions
