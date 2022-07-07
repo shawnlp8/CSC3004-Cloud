@@ -19,15 +19,25 @@ def index():
 @app.route('/Manager')
 def manager():
     db_Supermarket = getSupermarketHelper()
-    return render_template('Manager.html', db_Supermarket=db_Supermarket)
+    
+    #supermarketName = request.form.get("sName")
+    #db_Branch = getBranchAJAX(supermarketName)
+    db_Branch = getBranchAJAX()
+    
+    return render_template('Manager.html', db_Supermarket=db_Supermarket, db_Branch = db_Branch)
 
-@app.route('/addSuperMarket')
+@app.route('/addSupermarket')
 def addSuperMarket():
     return render_template('addSuperMarket.html')
 
-@app.route('/Specifications')
+@app.route('/Specifications', methods = ["GET", "POST"])
 def specifications():
     return render_template('product_specifications.html')
+
+@app.route('/doneLabel', methods = ["POST"])
+def doneLabel():
+    if (request.method == "POST"):
+        return render_template('index.html')
 
 @app.route('/getItem')
 def getItem(item):
@@ -43,15 +53,23 @@ def searchItem():
     # return jsonify({'data': searchItemHelper(item)})
     return render_template("index.html", data = searchItemHelper(item))
 
+@app.route('/itemLocator')
+def locateItem():
+    # Temp
+    harcode_productName = "Banana"
+    hardcode_Location = "ID-E3"
+    hardcode_FileName = "test.png"
+    return render_template('itemLocator.html', pn = harcode_productName, loc = hardcode_Location, fn = hardcode_FileName)
+
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
 def insertSupermarket():
     if (request.method == "POST"):
-        supermarketName = request.form.get("supermarketName")
-        supermarketBranch = request.form.get("supermarketBranch")
-        supermarketAddress = request.form.get("supermarketAddress")
+        supermarketName = request.form.get("new_supermerket")
+        supermarketBranch = request.form.get("new_Branch")
+        supermarketAddress = request.form.get("new_Address")
         insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
-    return "Insert Successful!"
+    return render_template('Manager.html')
 
 @app.route('/insert_Blueprint', methods = ["POST"])
 def insertBlueprint():
@@ -66,7 +84,7 @@ def insertBlueprint():
             supermarketBlueprint = secure_filename(input_File.filename)
 
         insertPhysicalFPHelper(supermarketName, supermarketBranch, str(supermarketBlueprint))
-        return render_template('product_specifications.html')
+        return render_template('product_specifications.html', BP_Filename = str(supermarketBlueprint))
     
     
 # Helper functions
@@ -85,7 +103,19 @@ def searchItemHelper(item):
 def getSupermarketHelper():
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sqlStatement = "SELECT * FROM Supermarket"
+    sqlStatement = "SELECT DISTINCT name FROM Supermarket"
+    cursor.execute(sqlStatement)
+    record = cursor.fetchall()
+    if not (cursor.rowcount == 0):
+        return record
+    else:
+        return "Cannot retrieve supermarket data, please try again!"
+
+def getBranchAJAX():
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    #sqlStatement = "SELECT branch FROM Supermarket WHERE name='"+ supermarket +"'"
+    sqlStatement = "SELECT DISTINCT branch FROM Supermarket"
     cursor.execute(sqlStatement)
     record = cursor.fetchall()
     if not (cursor.rowcount == 0):
@@ -97,7 +127,7 @@ def getSupermarketHelper():
 def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES (" + str(supermarketName) + ", " + str(supermarketBranch) + ", " + str(supermarketAddress) + ")"
+    sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES('"+ supermarketName +"', '"+ supermarketBranch +"', '"+ supermarketAddress +"')"
     cursor.execute(sqlStatementSupermarket)
     connection.commit()
     connection.close()
@@ -118,6 +148,14 @@ def insertPhysicalFPHelper(supermarket, branch, blueprint):
     else:
         return "No such Supermarket exists, please submit a new Supermarket."
 
+# Insert New Label
+def insertLabel(PhyID, ProdID, location):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    sqlStatementLabel = "INSERT INTO Label (physicalID, productID, logicalPoint) VALUES ("+ PhyID +", "+ ProdID +", '"+ location +"')"
+    cursor.execute(sqlStatementLabel)
+    connection.commit()
+    connection.close()
 
 if __name__ == '__main__':
     # Run the Flask server

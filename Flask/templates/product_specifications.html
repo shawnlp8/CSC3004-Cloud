@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -14,9 +15,28 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="static\css\styles.css">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     
   </head>
   <body>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">ID HERE</h5>
+            <button type="button" class="close" data-dismiss="modal">x</button>
+          </div>
+          <div class="modal-body">
+            INSERT FORM HERE
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
         <ul class="horizontal">
             <li><a class="#" href='/'>Home</a></li>
@@ -26,56 +46,70 @@
 
     <div class="outer">
         <h1>Select a box to specify product</h1>
-        <div class="inner">
-            <div id="ID-A1"></div>
-            <div id="ID-B1"></div>
-            <div id="ID-C1"></div>
-            <div id="ID-D1"></div>
-            <div id="ID-E1"></div>
-            <div id="ID-F1"></div>
+        <form method="post" action="/doneLabel" enctype="multipart/form-data">
+          <div class="inner" id="inner">
+            <div id="ID-A1" data-id="ID-A1" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B1" data-id="ID-B1" data-target="#myModal" data-toggle="modal" href="#" ></div>
+            <div id="ID-C1" data-id="ID-C1" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D1" data-id="ID-D1" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E1" data-id="ID-E1" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F1" data-id="ID-F1" data-target="#myModal" data-toggle="modal" href="#"></div>
 
-            <div id="ID-A2"></div>
-            <div id="ID-B2"></div>
-            <div id="ID-C2"></div>
-            <div id="ID-D2"></div>
-            <div id="ID-E2"></div>
-            <div id="ID-F2"></div>
+            <div id="ID-A2" data-id="ID-A2" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B2" data-id="ID-B2" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C2" data-id="ID-C2" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D2" data-id="ID-D2" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E2" data-id="ID-E2" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F2" data-id="ID-F2" data-target="#myModal" data-toggle="modal" href="#"></div>
 
-            <div id="ID-A3"></div>
-            <div id="ID-B3"></div>
-            <div id="ID-C3"></div>
-            <div id="ID-D3"></div>
-            <div id="ID-E3"></div>
-            <div id="ID-F3"></div>
+            <div id="ID-A3" data-id="ID-A3" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B3" data-id="ID-B3" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C3" data-id="ID-C3" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D3" data-id="ID-D3" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E3" data-id="ID-E3" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F3" data-id="ID-F3" data-target="#myModal" data-toggle="modal" href="#"></div>
             
-            <div id="ID-A4"></div>
-            <div id="ID-B4"></div>
-            <div id="ID-C4"></div>
-            <div id="ID-D4"></div>
-            <div id="ID-E4"></div>
-            <div id="ID-F4"></div>
+            <div id="ID-A4" data-id="ID-A4" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B4" data-id="ID-B4" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C4" data-id="ID-C4" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D4" data-id="ID-D4" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E4" data-id="ID-E4" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F4" data-id="ID-F4" data-target="#myModal" data-toggle="modal" href="#"></div>
 
-            <div id="ID-A5"></div>
-            <div id="ID-B5"></div>
-            <div id="ID-C5"></div>
-            <div id="ID-D5"></div>
-            <div id="ID-E5"></div>
-            <div id="ID-F5"></div>
+            <div id="ID-A5" data-id="ID-A5" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B5" data-id="ID-B5" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C5" data-id="ID-C5" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D5" data-id="ID-D5" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E5" data-id="ID-E5" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F5" data-id="ID-F5" data-target="#myModal" data-toggle="modal" href="#"></div>
 
-            <div id="ID-A6"></div>
-            <div id="ID-B6"></div>
-            <div id="ID-C6"></div>
-            <div id="ID-D6"></div>
-            <div id="ID-E6"></div>
-            <div id="ID-F6"></div>
+            <div id="ID-A6" data-id="ID-A6" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B6" data-id="ID-B6" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C6" data-id="ID-C6" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D6" data-id="ID-D6" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E6" data-id="ID-E6" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F6" data-id="ID-F6" data-target="#myModal" data-toggle="modal" href="#"></div>
 
-            <div id="ID-A7"></div>
-            <div id="ID-B7"></div>
-            <div id="ID-C7"></div>
-            <div id="ID-D7"></div>
-            <div id="ID-E7"></div>
-            <div id="ID-F7"></div>
+            <div id="ID-A7" data-id="ID-A7" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-B7" data-id="ID-B7" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-C7" data-id="ID-C7" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-D7" data-id="ID-D7" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-E7" data-id="ID-E7" data-target="#myModal" data-toggle="modal" href="#"></div>
+            <div id="ID-F7" data-id="ID-F7" data-target="#myModal" data-toggle="modal" href="#"></div>
         </div>
+        <input type="submit" value="Done"></input>
+        </form>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <script>
+      let img_Name = '{{ BP_Filename }}'; 
+      alert(img_Name)
+	    document.getElementById('inner').style.backgroundImage = "url('./static/css/"+ img_Name +"')";
+    </script>
+
   </body>
 </html>
