@@ -34,6 +34,11 @@ def addSuperMarket():
 def specifications():
     return render_template('product_specifications.html')
 
+@app.route('/doneLabel', methods = ["POST"])
+def doneLabel():
+    if (request.method == "POST"):
+        return render_template('index.html')
+
 @app.route('/getItem')
 def getItem(item):
     results = searchItemHelper(item)
@@ -47,6 +52,14 @@ def searchItem():
     # print("item: " + item)
     # return jsonify({'data': searchItemHelper(item)})
     return render_template("index.html", data = searchItemHelper(item))
+
+@app.route('/itemLocator')
+def locateItem():
+    # Temp
+    harcode_productName = "Banana"
+    hardcode_Location = "ID-E3"
+    hardcode_FileName = "test.png"
+    return render_template('itemLocator.html', pn = harcode_productName, loc = hardcode_Location, fn = hardcode_FileName)
 
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
@@ -135,6 +148,14 @@ def insertPhysicalFPHelper(supermarket, branch, blueprint):
     else:
         return "No such Supermarket exists, please submit a new Supermarket."
 
+# Insert New Label
+def insertLabel(PhyID, ProdID, location):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    sqlStatementLabel = "INSERT INTO Label (physicalID, productID, logicalPoint) VALUES ("+ PhyID +", "+ ProdID +", '"+ location +"')"
+    cursor.execute(sqlStatementLabel)
+    connection.commit()
+    connection.close()
 
 if __name__ == '__main__':
     # Run the Flask server
