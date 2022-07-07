@@ -30,7 +30,7 @@ def manager():
 def addSuperMarket():
     return render_template('addSuperMarket.html')
 
-@app.route('/Specifications')
+@app.route('/Specifications', methods = ["GET", "POST"])
 def specifications():
     return render_template('product_specifications.html')
 
