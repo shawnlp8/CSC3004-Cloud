@@ -14,10 +14,24 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """Returns the home page of the web application
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     return render_template('index.html')
 
 @app.route('/Manager')
 def manager():
+    """Returns the manage page of the web application along with the neccessary data
+
+    Returns:
+    file: The web page that will be returned
+    db_Supermarket: Dynamic supermarket data
+    db_Branch: Dynamic branch data
+
+   """
     db_Supermarket = getSupermarketHelper()
     
     #supermarketName = request.form.get("sName")
