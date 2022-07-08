@@ -89,12 +89,27 @@ def searchItem():
 
 @app.route('/itemLocator')
 def locateItem():
+    """Returns the item locator page of the web application along with the neccessary data
+
+    Returns:
+    file: The web page that will be returned
+    pn: Dynamic product data
+    loc: Dynamic location data
+    fn: Static file name
+
+   """
     hardcode_FileName = "test.png"
 
     return render_template('itemLocator.html', pn = global_Product, loc = global_Location, fn = hardcode_FileName)
 
 @app.route('/pidlookup', methods=['POST'])
 def productIDLookup():
+    """Returns the product ID that is retrieved from the database
+
+    Returns:
+    pid: int value of the retrieved product ID
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
 
@@ -111,8 +126,6 @@ def productIDLookup():
     get_LogicalPoint = cursor.fetchone()
     global global_Location
     global_Location = str(get_LogicalPoint[0])
-
-
 
     #return render_template('itemLocator.html', pn = pid)
     return pid
