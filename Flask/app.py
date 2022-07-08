@@ -37,9 +37,6 @@ def manager():
 
    """
     db_Supermarket = getSupermarketHelper()
-    
-    #supermarketName = request.form.get("sName")
-    #db_Branch = getBranchAJAX(supermarketName)
     db_Branch = getBranchAJAX()
     
     return render_template('Manager.html', db_Supermarket=db_Supermarket, db_Branch = db_Branch)
@@ -114,7 +111,7 @@ def productIDLookup():
     cursor = connection.cursor()
 
     output = request.get_json()
-    result = json.loads(output) #this converts the json output to a python dictionary
+    result = json.loads(output) # this converts the json output to a python dictionary
 
     pid = result['selectRowID']
     product = result['selectRowProduct']
@@ -127,7 +124,6 @@ def productIDLookup():
     global global_Location
     global_Location = str(get_LogicalPoint[0])
 
-    #return render_template('itemLocator.html', pn = pid)
     return pid
 
 # Add new Supermarket
@@ -144,6 +140,7 @@ def insertSupermarket():
         supermarketBranch = request.form.get("new_Branch")
         supermarketAddress = request.form.get("new_Address")
         insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress)
+
     return render_template('Manager.html')
 
 @app.route('/insert_Blueprint', methods = ["POST"])
@@ -173,6 +170,9 @@ def insertBlueprint():
 def searchItemHelper(item):
     """Helper function that returns the data of the products based on user input
 
+    Parameters:
+    item (String): String value that is to be concatenated with the SQL statement
+
     Returns:
     data: The retrieved data from the database
 
@@ -183,12 +183,17 @@ def searchItemHelper(item):
     cursor.execute(sqlStatement)
     data = cursor.fetchall()
     if not (cursor.rowcount == 0):
-        print(data)
         return data
     else:
         return "Item not found!"
 
 def getSupermarketHelper():
+    """Helper function that returns the name of the products available in the supermarket
+
+    Returns:
+    record: The retrieved data from the database
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatement = "SELECT DISTINCT name FROM Supermarket"
@@ -201,9 +206,14 @@ def getSupermarketHelper():
         
 
 def getBranchAJAX():
+    """Helper function that returns the different branches of the supermarket
+
+    Returns:
+    record: The retrieved data from the database
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
-    #sqlStatement = "SELECT branch FROM Supermarket WHERE name='"+ supermarket +"'"
     sqlStatement = "SELECT DISTINCT branch FROM Supermarket"
     cursor.execute(sqlStatement)
     record = cursor.fetchall()
@@ -214,6 +224,14 @@ def getBranchAJAX():
 
 # Add new Supermarket Helper
 def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddress):
+    """Helper function inserts the data of the supermarket into the database
+
+    Parameters:
+    supermarketName (String): String value that is to be concatenated with the SQL statement for insertion
+    supermarketBranch (String): String value that is to be concatenated with the SQL statement for insertion
+    supermarketAddress (String): String value that is to be concatenated with the SQL statement for insertion
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatementSupermarket = "INSERT INTO Supermarket (name,branch,address) VALUES('"+ supermarketName +"', '"+ supermarketBranch +"', '"+ supermarketAddress +"')"
@@ -223,6 +241,14 @@ def insertSupermarketHelper(supermarketName, supermarketBranch, supermarketAddre
 
 # Insert to PhysicalFP (Manager 1st page)
 def insertPhysicalFPHelper(supermarket, branch, blueprint):
+    """Helper function inserts the data of the product into the database
+
+    Parameters:
+    supermarket (String): String value that is to be concatenated with the SQL statement for insertion
+    branch (String): String value that is to be concatenated with the SQL statement for insertion
+    blueprint (String): String value that is to be concatenated with the SQL statement for insertion
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sql_SupermarketID = "SELECT supermarketID FROM Supermarket WHERE name='"+ supermarket + "' AND branch='"+ branch +"'"
@@ -239,6 +265,14 @@ def insertPhysicalFPHelper(supermarket, branch, blueprint):
 
 # Insert New Label
 def insertLabel(PhyID, ProdID, location):
+    """Helper function inserts the label into the database
+
+    Parameters:
+    PhyID (String): String value that is to be concatenated with the SQL statement for insertion
+    ProdID (String): String value that is to be concatenated with the SQL statement for insertion
+    location (String): String value that is to be concatenated with the SQL statement for insertion
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatementLabel = "INSERT INTO Label (physicalID, productID, logicalPoint) VALUES ("+ PhyID +", "+ ProdID +", '"+ location +"')"
