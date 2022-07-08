@@ -207,6 +207,10 @@ h3{
 
 .outer {
     width:100%;
+    background-image: url('cock.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40% 81%; 
 }
 .outer h1{
     margin-top: 2%;

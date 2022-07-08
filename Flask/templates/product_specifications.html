@@ -24,15 +24,26 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">ID HERE</h5>
+            <p><span class="dataId"></span></p>
             <button type="button" class="close" data-dismiss="modal">x</button>
           </div>
           <div class="modal-body">
-            INSERT FORM HERE
-          </div>
+            <p>Add Products</p>
+            <div class="form-group">  
+              <form name="add_products" id="add_products">  
+                             <div id="InputsWrapper">
+              <div class="row">
+                                  <div class="col-xs-6"><input type="text" name="product[]" placeholder="Enter product" class="form-control name_list" /></div>
+                                  <div class="col-xs-6"><button type="button" name="add" id="AddMoreFileBox" class="btn btn-success">Add More</button></div>
+              </div>
+            </div>
+            <br/>
+                        <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" data-dismiss="modal" />  
+              </form>  
+         </div>  
+    </div> 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -108,7 +119,54 @@
     <script>
       let img_Name = '{{ BP_Filename }}'; 
 	    document.getElementById('inner').style.backgroundImage = "url('./static/css/"+ img_Name +"')";
-    </script>
+
+      $('#myModal').on('show.bs.modal', function (e) {
+      var dataId = $(e.relatedTarget).attr('data-id');
+      $(this).find('.dataId').text(dataId);
+      });
+
+      $(document).ready(function() {
+  
+      var MaxInputs       = 8; //maximum input boxes allowed
+      var InputsWrapper   = $("#InputsWrapper"); //Input boxes wrapper ID
+      var AddButton       = $("#AddMoreFileBox"); //Add button ID
+        
+      var x = InputsWrapper.length; //initlal text box count
+      var FieldCount=1; //to keep track of text box added
+        
+      $(AddButton).click(function (e)  //on add input button click
+      {
+              if(x <= MaxInputs) //max input box allowed
+              {
+                  FieldCount++; //text box added increment
+                  //add input box
+                  $(InputsWrapper).append('<div class="row"><p class="col-xs-6"><input type="text" placeholder="Enter your product" class="form-control product_list" name="product[]" id="field_'+ FieldCount +'" value="Enter your product '+ FieldCount +'"/></p><a href="#" class="btn btn-danger removeclass">×</a></div>');
+                  x++; //text box increment
+              }
+      return false;
+      });
+        
+      $("body").on("click",".removeclass", function(e){ //user click on remove text
+              if( x > 1 ) {
+                      $(this).parent('div').remove(); //remove text box
+                      x--; //decrement textbox
+              }
+      return false;
+      })
+      $('#submit').click(function(){            
+                $.ajax({  
+                      url:"/postproduct",  
+                      method:"POST",  
+                      data:$('#add_product').serialize(),  
+                      success:function(data)  
+                      {  alert(data)
+                          $('#resultbox').html(data);  
+                          $('#add_product')[0].reset();  
+                      }  
+                });  
+            }); 
+      });
+    </script>    
 
   </body>
 </html>
