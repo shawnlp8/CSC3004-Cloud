@@ -12,6 +12,10 @@ import sys
 
 app = Flask(__name__)
 
+global_Product = None
+global_BP = None
+global_Location = None
+
 @app.route('/')
 def index():
     """Returns the home page of the web application
@@ -85,11 +89,33 @@ def searchItem():
 
 @app.route('/itemLocator')
 def locateItem():
-    # Temp
-    harcode_productName = "Banana"
-    hardcode_Location = "ID-E3"
     hardcode_FileName = "test.png"
-    return render_template('itemLocator.html', pn = harcode_productName, loc = hardcode_Location, fn = hardcode_FileName)
+
+    return render_template('itemLocator.html', pn = global_Product, loc = global_Location, fn = hardcode_FileName)
+
+@app.route('/pidlookup', methods=['POST'])
+def productIDLookup():
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+
+    output = request.get_json()
+    result = json.loads(output) #this converts the json output to a python dictionary
+
+    pid = result['selectRowID']
+    product = result['selectRowProduct']
+    global global_Product
+    global_Product = product
+    
+    sql_LabelPoint = "SELECT logicalPoint FROM Label WHERE productID=" + pid
+    cursor.execute(sql_LabelPoint)
+    get_LogicalPoint = cursor.fetchone()
+    global global_Location
+    global_Location = str(get_LogicalPoint[0])
+
+    
+
+    #return render_template('itemLocator.html', pn = pid)
+    return pid
 
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
