@@ -133,6 +133,12 @@ def productIDLookup():
 # Add new Supermarket
 @app.route('/insertSupermarket', methods = ["POST"])
 def insertSupermarket():
+    """Returns the manager page of the web application after a POST request to insert supermarket data
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     if (request.method == "POST"):
         supermarketName = request.form.get("new_supermerket")
         supermarketBranch = request.form.get("new_Branch")
@@ -142,6 +148,13 @@ def insertSupermarket():
 
 @app.route('/insert_Blueprint', methods = ["POST"])
 def insertBlueprint():
+    """Returns the product specification page of the web application after a POST request to insert blueprint data along with the file name
+
+    Returns:
+    file: The web page that will be returned
+    BP_Filename: The file name of the uploaded blueprint
+
+   """
     if (request.method == "POST"):
         supermarketName = request.form.get("sName")
         supermarketBranch = request.form.get("bName")
@@ -158,6 +171,12 @@ def insertBlueprint():
     
 # Helper functions
 def searchItemHelper(item):
+    """Helper function that returns the data of the products based on user input
+
+    Returns:
+    data: The retrieved data from the database
+
+   """
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     sqlStatement = "SELECT * FROM Product WHERE name LIKE '%" + str(item) + "%'"
