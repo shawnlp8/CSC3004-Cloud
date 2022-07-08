@@ -243,3 +243,36 @@ th, td{
     width: 200px;
     text-align: center;
 }
+
+/*  Item Table    */
+.table-result{
+    font-family: 'Varela Round', sans-serif;
+    background-color: white;
+    border: 1px solid #bbb; 
+    border-collapse: separate !important;
+    border-spacing: 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 6px 6px -6px rgb(175, 175, 175);
+    -moz-box-shadow: 0 6px 6px -6px rgb(175, 175, 175);
+    box-shadow: 0 6px 6px -6px rgb(175, 175, 175);
+}
+
+.table-result th{
+    padding: 15px 8px 15px 8px;
+    text-align: center;
+    color: white;
+    background-color: #5b318b;
+    border-bottom: 1px solid #bbb;
+}
+
+.table-result td{
+    padding: 15px 8px 15px 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.table-result tr:hover {
+    background-color: #ddd;
+}
