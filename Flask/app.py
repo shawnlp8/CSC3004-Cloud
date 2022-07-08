@@ -112,7 +112,7 @@ def productIDLookup():
     global global_Location
     global_Location = str(get_LogicalPoint[0])
 
-    
+
 
     #return render_template('itemLocator.html', pn = pid)
     return pid
@@ -166,6 +166,7 @@ def getSupermarketHelper():
         return record
     else:
         return "Cannot retrieve supermarket data, please try again!"
+        
 
 def getBranchAJAX():
     connection = sqlite3.connect('../database/database.db')
@@ -216,6 +217,6 @@ def insertLabel(PhyID, ProdID, location):
 if __name__ == '__main__':
     # Run the Flask server
     print("\nFlask server started and listening on port 5000...\n")
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
     
     
