@@ -18,10 +18,24 @@ global_Location = None
 
 @app.route('/')
 def index():
+    """Returns the home page of the web application
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     return render_template('index.html')
 
 @app.route('/Manager')
 def manager():
+    """Returns the manage page of the web application along with the neccessary data
+
+    Returns:
+    file: The web page that will be returned
+    db_Supermarket: Dynamic supermarket data
+    db_Branch: Dynamic branch data
+
+   """
     db_Supermarket = getSupermarketHelper()
     
     #supermarketName = request.form.get("sName")
@@ -32,28 +46,45 @@ def manager():
 
 @app.route('/addSupermarket')
 def addSuperMarket():
+    """Returns the add supermarket page of the web application
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     return render_template('addSuperMarket.html')
 
 @app.route('/Specifications', methods = ["GET", "POST"])
 def specifications():
+    """Returns the specifications of the web application
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     return render_template('product_specifications.html')
 
 @app.route('/doneLabel', methods = ["POST"])
 def doneLabel():
+    """Returns the home page of the web application after a successful post request for label
+
+    Returns:
+    file: The web page that will be returned
+
+   """
     if (request.method == "POST"):
         return render_template('index.html')
 
-@app.route('/getItem')
-def getItem(item):
-    results = searchItemHelper(item)
-    render_template('getItem.html', itr=results)
-
 @app.route('/searchItem', methods = ["GET", "POST"])
 def searchItem():
+    """Returns a JSON data derived from making a database call based on user input
+
+    Returns:
+    json: Dynamically retrieved available items data
+
+   """
     request_data = request.get_json()
-    # print("JSON String: \n", str(request_data))
     item = request_data['item']
-    # print("item: " + item)
     return jsonify({'data': searchItemHelper(item)})
 
 @app.route('/itemLocator')
