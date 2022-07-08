@@ -276,3 +276,31 @@ h3{
 .table-result tr:hover {
     background-color: #ddd;
 }
+
+
+/* Insert Blueprint */
+.btn-danger{
+    margin-left: 3%;
+}
+
+.col-xs-6{
+    margin-bottom: 5%;
+}
+
+.btn-danger {
+    height: 40px;
+}
+
+.col-xs-6 button{
+    margin-left: 15%;
+}
+
+.row{
+    margin-left: -5px;
+}
+
+.dataId{
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+}

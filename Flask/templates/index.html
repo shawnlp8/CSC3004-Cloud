@@ -66,6 +66,26 @@
             $('#dataTable').hide();
           }
 
+          function selectedRow(val){
+            //get Product ID on selected Row
+            var selectRowID = $('#dataTable tr:eq('+ (val+1) +') td:eq(0)').text();
+            var selectRowProduct = $('#dataTable tr:eq('+ (val+1) +') td:eq(1)').text();
+
+            //then send to Flask
+            const dict_values = {selectRowID, selectRowProduct} //Pass the javascript variables to a dictionary.
+            const s = JSON.stringify(dict_values); // Stringify converts a JavaScript object or value to a JSON string
+            console.log(s); 
+            $.ajax({
+                url:"/pidlookup",
+                type:"POST",
+                contentType: "application/json",
+                data: JSON.stringify(s)});
+
+                
+            //Redirect
+            window.location.replace("/itemLocator");
+          }
+
           function searchButtonClick() {
               $("#dataTable td").remove();
               $('#dataTable').show();
@@ -88,7 +108,7 @@
 
                       // Traversing the JSON data
                       for (var i = 0; i < dataArray.length; i++) {
-                          var row = $('<tr/>');  
+                          var row = $('<tr onClick="selectedRow('+ i +')">');  
                           for (var j = 0; j < 7; j++)
                           {
                               var val = dataArray[i][j];
